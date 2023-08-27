@@ -31,9 +31,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 
 @Composable
-fun BannerScreen(modifier: Modifier = Modifier) {
+fun BannerScreen(navHostController: NavHostController,modifier: Modifier = Modifier) {
     Column(
         modifier
             .fillMaxSize()
@@ -151,7 +152,7 @@ fun BannerScreen(modifier: Modifier = Modifier) {
             }
 
             Button(
-                onClick = { /*TODO*/ },
+                onClick = { navHostController.navigate("Home screen") },
                 modifier
                     .padding(60.dp)
                     .border(
@@ -173,7 +174,7 @@ fun BannerScreen(modifier: Modifier = Modifier) {
             ) {
                 Text(
                     text = "Get in",
-                    fontSize = 35.sp,
+                    fontSize = 25.sp,
                     fontWeight = FontWeight.ExtraLight
 
                 )
