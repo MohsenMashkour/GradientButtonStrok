@@ -12,9 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -32,10 +30,13 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.mkrdeveloper.gradientbuttonstrok.models.Data
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
+fun HomeScreen(moviesList: List<Data>, modifier: Modifier = Modifier) {
     Box(
         modifier
             .fillMaxSize()
@@ -84,10 +85,18 @@ fun HomeScreen(modifier: Modifier = Modifier) {
         )
         Column(
             modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.SpaceBetween,
-            horizontalAlignment = Alignment.CenterHorizontally
+            verticalArrangement = Arrangement.Top,
+            // horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "What would you like to watch?", color = Color.White)
+            Text(
+                text = "What would you\n\n like to watch?",
+                modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(top = 35.dp),
+                color = Color.White,
+                fontSize = 40.sp,
+                textAlign = TextAlign.Center
+            )
             SearchBar(
                 hint = "Search...",
                 modifier = Modifier
@@ -96,17 +105,40 @@ fun HomeScreen(modifier: Modifier = Modifier) {
             ) {
 
             }
-            Text(text = "New movies", color = Color.Yellow)
+            Text(
+                text = "New movies:",
+                modifier
+                    .padding(start = 16.dp),
+                color = Color(0xFFFFEB3B)
+            )
 
-            LazyHorizontalGrid(rows = GridCells.Fixed(1)) {
+            LazyRow() {
 
+                items(moviesList.size) {
+
+                    MovieItem(
+                    itemIndex = it,
+                    movies = moviesList
+                    )
+                }
             }
-            Text(text = "upcoming movies", color = Color.Yellow)
-            LazyHorizontalGrid(rows = GridCells.Fixed(1)) {
+            Text(
+                text = "upcoming movies:",
+                modifier
+                    .padding(start = 16.dp),
+                color = Color(0xFFFFEB3B)
+            )
+            LazyRow() {
 
             }
         }
     }
+}
+
+@Composable
+fun MovieItem(itemIndex: Int, movies: List<Data>) {
+
+    Text(text = movies[itemIndex].title, color = Color.White)
 }
 
 @Composable
